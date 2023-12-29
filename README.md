@@ -7,6 +7,7 @@ A CTF for the upcoming Linux Club Event.
 The website is made using fastapi and sqlite3.
  - The webiste when first loaded in the home page, the user will be given a JWT and a session id as cookies.The challenger first has a forge a JWT with None algorithm and pass it to get to the /admin/login page.
  - After getting to the admin login page , they need to do error based conditional blind sqli in the session-id field and get the admin password(a 8 character long password)
+ - The table details are given in the image avalaibale in the /about page.The can do bruteforce to get the password and extract the table details
  - After submitting the password,they will get the RSA encrypted flag.Again by doing blind sqli they need to find n(modulus),e(public key) and phi(providing these 3 since the RSA keys are generated using [rsa_python](https://pypi.org/project/rsa-python/) library and keys are 128 bits)
  - Using those values decrypt the flag and done !!
  - The flag is in the ``` flag_{s3cr3t} ``` format. The flag is 32 character long with string.hexdigits characters
