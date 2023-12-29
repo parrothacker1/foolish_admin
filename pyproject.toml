@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "foolish-admin"
+version = "0.1.0"
+description = "A mistake by the foolish admin"
+authors = ["parrothacker1 <rajeevgoutham1@protonmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = {extras = ["all"], version = "^0.105.0"}
+SQLAlchemy = "^2.0.23"
+uvicorn = "^0.25.0"
+jinja2 = "^3.1.2"
+pyjwt = "^2.8.0"
+rsa-python = "^0.1.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Admin Page</title>
+  </head>
+  <body>
+    {% if admin==True %}
+      <h1> Admin Login</h1>
+      <input type="text" id="password" placeholder="Enter the password for admin"/>
+      <input type="button" id="button" value="Submit" />
+      <p id="output"></p>
+    {% else %}
+      <p> You are not allowed to view this page</p>
+    {% endif %}
+
+  </body>
+<script>
+  var password=document.getElementById("password");
+  document.getElementById("button").addEventListener("click",() => {
+    fetch("http://0.0.0.0:8000/api/check_password",{
+      method: 'POST', headers:{
+        'Content-Type': 'application/json'
+      },body:JSON.stringify({password:password.value})
+    }).then(res => res.json()).then(res => {document.getElementById("output").innerText="flag is "+res})
+  })
+</script>
+</html>
