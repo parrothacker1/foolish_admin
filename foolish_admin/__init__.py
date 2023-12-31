@@ -1,11 +1,8 @@
 from foolish_admin.main import app
-
-import random
-import string
+from foolish_admin import gen_flag
 
 file=open("challenge.txt","a+")
-challenge_txt="flag_{"+''.join(random.choices(string.hexdigits,k=32))+"}"
-if file.read() == '':
-    file.write(challenge_txt)
+if gen_flag.checker(file):
+    raise Exception("No challenge.txt file found")
 
 file.close()

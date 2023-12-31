@@ -10,18 +10,47 @@ The website is made using fastapi and sqlite3.
  - The table details are given in the image avalaibale in the /about page.The can do bruteforce to get the password and extract the table details
  - After submitting the password,they will get the RSA encrypted flag.Again by doing blind sqli they need to find n(modulus),e(public key) and phi(providing these 3 since the RSA keys are generated using [rsa_python](https://pypi.org/project/rsa-python/) library and keys are 128 bits)
  - Using those values decrypt the flag and done !!
- - The flag is in the ``` flag_{s3cr3t} ``` format. The flag is 32 character long with string.hexdigits characters
+ - The flag is in the ``` flag_{s3cr3t} ``` format. The flag is 32 character long with string.hexdigits characters.
+ - Flag can be generated using the gen_flag.py script.The program will raise an Exception if challenge.txt is not found or there are no contents in the challenge.txt file.
+
  ```python
 '''
 foolish_admin/__init__.py
 '''
+file=open("challenge.txt","a+")
+if gen_flag.checker(file):
+    raise Exception("No challenge.txt file found")
+file.close()
+```
+
+```python
+'''
+foolish_admin/gen_flag.py 
+'''
+import sys
 import string
 import random
-challenge_txt="flag_{"+''.join(random.choices(string.hexdigits,k=32))+"}"
-file=open("challenge.txt","a+")
-if file.read() == '':
-    file.write(challenge_txt)
-file.close()
+
+generator=lambda: "flag_{"+''.join(random.choices(string.hexdigits,k=32))+"}"
+
+def checker(file):
+    file.seek(0)
+    return file.read() == ""
+
+def challenge_checker():
+    file=open("challenge.txt","a+")
+    if len(sys.argv) == 1 and checker(file):
+        flag_input=input("Enter the flag: ")
+        flag = generator() if flag_input == "" else flag_input
+        file.write(flag)
+    elif len(sys.argv) >= 2 andd cchecker(file):
+        file.write(sys.argv[1])
+    elif not checker(file):
+        print("challenge.txt file already exists with a valid flag")
+    file.close()
+
+if __name__ == "__main__":
+    challenge_checker()
 ```
 
 ## Technologies Used

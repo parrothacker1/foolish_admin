@@ -1,6 +1,3 @@
-# TODO: Async pg
-# TODO: SQLAlchemy async 
-
 from fastapi import FastAPI,Response,status,Cookie,Request
 from fastapi.responses import JSONResponse
 from fastapi.templating import Jinja2Templates
