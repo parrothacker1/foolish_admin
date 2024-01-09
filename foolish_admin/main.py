@@ -68,17 +68,20 @@ async def admin_login(response:Response,
                       jwt: str | None = Cookie(default=None),
                       sessionID:str | None = Cookie(default=None,alias='session-id')):
     if sessionID is not None and jwt is not None:
-        jwt_header=JWT.get_unverified_header(jwt)
-        decoded_jwt=JWT.decode(jwt,
-                               key=config["jwt_secret"] if jwt_header['alg'] != "none" else None,
-                               verify=False,algorithms=[jwt_header['alg']],
-                               options={'verify_signature':jwt_header['alg'] != "none"})
-        response=templates.TemplateResponse('admin.html',{"request":request,"admin":decoded_jwt['isAdmin']})
+        try:
+            jwt_header=JWT.get_unverified_header(jwt)
+            decoded_jwt=JWT.decode(jwt,
+                               key=config["jwt_secret"],
+                               verify=False,algorithms=['HS512'],
+                               options={'verify_signature':True})
+            response=templates.TemplateResponse('admin.html',{"request":request,"admin":decoded_jwt['isAdmin']})
 
-        if decoded_jwt['isAdmin'] and decoded_jwt['role'] == "admin":
-            db.session_checker(sessionID)
-    else:
-        response=templates.TemplateResponse('admin.html',{"request":request,"admin":False})
+            if decoded_jwt['isAdmin'] and decoded_jwt['role'] == "admin":
+                db.session_checker(sessionID)
+            else:
+                response=templates.TemplateResponse('admin.html',{"request":request,"admin":False})
+        except Exception:
+            response="Signature is not verified or algorithm is not same"
     
     return response
 

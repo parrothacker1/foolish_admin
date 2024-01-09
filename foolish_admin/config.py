@@ -1,6 +1,6 @@
 import os
 
 config={
-    "jwt_secret":"secret_key",
+    "jwt_secret":"josiah2487",
     "sqlite_url":"sqlite:///./sqlite.db"
 }

@@ -1,6 +1,7 @@
 <html>
   <head>
     <title>Admin Page</title>
+    <link rel="icon" type="image/x-icon" href=" {{ url_for('static',path='tuux_space.jpeg') }}" />
   </head>
   <body>
     {% if admin==True %}
@@ -13,6 +14,7 @@
     {% endif %}
 
   </body>
+{% if admin==True %}
 <script>
   var password=document.getElementById("password");
   document.getElementById("button").addEventListener("click",() => {
@@ -23,4 +25,5 @@
     }).then(res => res.json()).then(res => {document.getElementById("output").innerText="flag is "+res})
   })
 </script>
+{% endif %}
 </html>
