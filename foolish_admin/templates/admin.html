@@ -18,7 +18,7 @@
 <script>
   var password=document.getElementById("password");
   document.getElementById("button").addEventListener("click",() => {
-    fetch("http://0.0.0.0:8000/api/check_password",{
+    fetch("http://"+window.location.host+"/api/check_password",{
       method: 'POST', headers:{
         'Content-Type': 'application/json'
       },body:JSON.stringify({password:password.value})
