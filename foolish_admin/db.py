@@ -36,7 +36,7 @@ class Sessions(Base):
 Base.metadata.create_all(engine)
 
 admin_list=session.execute(select(Users)).first()
-if admin_list is not None:
+if admin_list is None:
     admin_query=insert(Users).values(**{"id":0,"user":"admin","password":''.join(random.choices(string.ascii_letters,k=8))})
     session.execute(admin_query)
     session.commit()
@@ -53,7 +53,7 @@ def session_checker(sessionID:str) -> bool:
 
 def add_session(sessionID:str) -> bool:
     session_list=session.execute(select(Sessions)).first()
-    if session_list is not None:
+    if session_list is None:
         query=insert(Sessions).values(**{"id":0,"session":sessionID})
         session.execute(query)
         session.commit()
@@ -63,6 +63,6 @@ def rsa_keys(add=False,keys=None):
         output=session.execute(select(Keys.n,Keys.e)).first()
         return output
     else:
-        query=insert(Keys).values(id=0,n=keys[0],e=keys[1],phi=keys[2])
+        query=insert(Keys).values(id=0,n=str(keys[0]),e=str(keys[1]),phi=str(keys[2]))
         session.execute(query)
         session.commit()
