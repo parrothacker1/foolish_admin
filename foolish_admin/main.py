@@ -70,7 +70,7 @@ async def check_password(password:Password,response:Response,jwt:str|None=Cookie
     response=JSONResponse(**result)
     return response
 
-@app.get("/admin/login")
+@app.get("/login")
 async def admin_login(response:Response,
                       request:Request,
                       jwt: str | None = Cookie(default=None),
