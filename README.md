@@ -1,7 +1,7 @@
 # foolish_admin
 A foolish mistake by the admin who is also a web dev.
 
-A CTF for the upcoming Linux Club Event.
+A CTF that was used in the PASSWORD 2024 Event.
 
 ## Working
 The website is made using fastapi and sqlite3.
@@ -12,46 +12,6 @@ The website is made using fastapi and sqlite3.
  - Using those values decrypt the flag and done !!
  - The flag is in the ``` flag_{s3cr3t} ``` format. The flag is 32 character long with string.hexdigits characters.
  - Flag can be generated using the gen_flag.py script.The program will raise an Exception if challenge.txt is not found or there are no contents in the challenge.txt file.
-
- ```python
-'''
-foolish_admin/__init__.py
-'''
-file=open("challenge.txt","a+")
-if gen_flag.checker(file):
-    raise Exception("No challenge.txt file found")
-file.close()
-```
-
-```python
-'''
-foolish_admin/gen_flag.py 
-'''
-import sys
-import string
-import random
-
-generator=lambda: "flag_{"+''.join(random.choices(string.hexdigits,k=32))+"}"
-
-def checker(file):
-    file.seek(0)
-    return file.read() == ""
-
-def challenge_checker():
-    file=open("challenge.txt","a+")
-    if len(sys.argv) == 1 and checker(file):
-        flag_input=input("Enter the flag: ")
-        flag = generator() if flag_input == "" else flag_input
-        file.write(flag)
-    elif len(sys.argv) >= 2 andd cchecker(file):
-        file.write(sys.argv[1])
-    elif not checker(file):
-        print("challenge.txt file already exists with a valid flag")
-    file.close()
-
-if __name__ == "__main__":
-    challenge_checker()
-```
 
 ## Technologies Used
 - [Fastapi](https://fastapi.tiangolo.com/)
